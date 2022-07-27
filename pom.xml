@@ -124,6 +124,7 @@
   </dependencies>
 
   <build>
+    <finalName>english-learn-helper</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>

@@ -19,6 +19,7 @@ import java.io.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 单词业务实现类
@@ -94,8 +95,14 @@ public class WordsServiceImpl implements IWordsService {
         Collections.shuffle(words);
         // 范围值大于题数时  截取题数
         if ((checkRequest.getEndAt() - checkRequest.getStartAt()) >= checkRequest.getNum()) {
-            return words.subList(0, checkRequest.getNum());
+            return words.subList(0, checkRequest.getNum()).stream().map(it -> {
+                it.setTranslation(null);
+                return it;
+            }).collect(Collectors.toList());
         }
-        return words;
+        return words.stream().map(it -> {
+            it.setTranslation(null);
+            return it;
+        }).collect(Collectors.toList());
     }
 }
