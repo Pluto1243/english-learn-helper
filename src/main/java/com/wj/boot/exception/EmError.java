@@ -8,6 +8,10 @@ package com.wj.boot.exception;
  **/
 @SuppressWarnings("AlibabaEnumConstantsMustHaveComment")
 public enum EmError implements CommonError {
+    UPLOAD_ERROR(10015, "导入失败"),
+
+    GROUP_NAME_EXIST(10014, "分组名称已存在"),
+
     LOGOUT_FAILD(10013, "退出登录失败"),
 
     LOGIN_FAILD(10012, "登录失败，请检查用户名或密码是否正确"),

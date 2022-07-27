@@ -3,6 +3,7 @@ package com.wj.boot.exception;
 import com.wj.boot.entity.response.R;
 import com.wj.boot.utils.LogUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -39,6 +40,9 @@ public class GlobalExceptionHandler {
         } else if (ex instanceof ConstraintViolationException) {
             responseData.put("errCode", "-1");
             responseData.put("errMsg", ((ConstraintViolationException) ex).getConstraintViolations().iterator().next().getMessageTemplate());
+        } else if (ex instanceof BindException) {
+            responseData.put("errCode", "-1");
+            responseData.put("errMsg", ((BindException) ex).getBindingResult().getFieldErrors().get(0).getDefaultMessage());
         } else {
             responseData.put("errCode", EmError.UNKNOWN_ERROR.getErrCode());
             responseData.put("errMsg", EmError.UNKNOWN_ERROR.getErrMsg());

@@ -1,9 +1,5 @@
 package com.wj.boot.config;
 
-import com.wj.boot.entity.User;
-import com.wj.boot.exception.CommonException;
-import com.wj.boot.exception.EmError;
-import com.wj.boot.service.IUserService;
 import com.wj.boot.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,9 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 public class SignInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private IUserService userService;
-
-    @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
     /**
@@ -39,19 +32,6 @@ public class SignInterceptor implements HandlerInterceptor {
     @ResponseBody
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        // 验证用户是否登录
-        final String token = request.getHeader("token");
-        if (token == null){
-            throw new CommonException(EmError.LOGIN_EXPIRED);
-        }
-        final String account = jwtTokenUtil.getUsernameFromToken(token);
-        if (account == null){
-            throw new CommonException(EmError.LOGIN_EXPIRED);
-        }
-        final User user = userService.getUserByAccount(account);
-        if (user == null){
-            throw new CommonException(EmError.LOGIN_EXPIRED);
-        }
         return true;
     }
 

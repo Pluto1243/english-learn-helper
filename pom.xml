@@ -23,6 +23,9 @@
     <spring-security.version>5.4.5</spring-security.version>
     <commons.version>1.9.4</commons.version>
     <bind.version>2.3.1</bind.version>
+    <jsoup.version>1.13.1</jsoup.version>
+    <http-core.version>4.5.2</http-core.version>
+    <http-client.version>4.4.5</http-client.version>
   </properties>
   <dependencies>
     <dependency>
@@ -101,6 +104,22 @@
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
       <version>${bind.version}</version>
+    </dependency>
+    <!--爬虫-->
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>${jsoup.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>${http-core.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpcore</artifactId>
+      <version>${http-client.version}</version>
     </dependency>
   </dependencies>
 

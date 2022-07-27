@@ -1,15 +1,16 @@
 package com.wj.boot.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.wj.boot.entity.User;
+import com.wj.boot.entity.Group;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * user映射类
+ * 分组映射
  *
  * @author wangjie
- * @date 11:35 2022年07月26日
+ * @date 14:56 2022年07月27日
  **/
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface GroupMapper extends BaseMapper<Group> {
+
 }
