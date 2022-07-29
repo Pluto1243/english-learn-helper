@@ -12,11 +12,11 @@ import com.wj.boot.service.IWordsService;
 import com.wj.boot.utils.WordsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -86,7 +86,7 @@ public class WordsServiceImpl implements IWordsService {
     @Override
     public List<Words> checkWords(CheckRequest checkRequest) {
         // 从范围里获取单词
-        String limit = "limit " + checkRequest.getStartAt() + "," + checkRequest.getEndAt();
+        String limit = "limit " + checkRequest.getStartAt() + "," + (checkRequest.getEndAt() - checkRequest.getStartAt());
         List<Words> words = wordsMapper.selectList(
                                 new QueryWrapper<Words>()
                                     .eq("groupId", checkRequest.getGroupId())
@@ -95,14 +95,19 @@ public class WordsServiceImpl implements IWordsService {
         Collections.shuffle(words);
         // 范围值大于题数时  截取题数
         if ((checkRequest.getEndAt() - checkRequest.getStartAt()) >= checkRequest.getNum()) {
-            return words.subList(0, checkRequest.getNum()).stream().map(it -> {
-                it.setTranslation(null);
-                return it;
-            }).collect(Collectors.toList());
+            return words.subList(0, checkRequest.getNum());
         }
-        return words.stream().map(it -> {
-            it.setTranslation(null);
-            return it;
-        }).collect(Collectors.toList());
+        return words;
+    }
+
+    @Override
+    public List<Group> listGroup() {
+        List<Group> groups = groupMapper.selectList(new QueryWrapper<Group>());
+        if (!CollectionUtils.isEmpty(groups)) {
+            groups.stream().forEach(it -> {
+                it.setWordsCount(wordsMapper.selectCount(new QueryWrapper<Words>().eq("groupId", it.getId())).intValue());
+            });
+        }
+        return groups;
     }
 }

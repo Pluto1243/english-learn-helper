@@ -2,6 +2,7 @@ package com.wj.boot.entity;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,4 +24,8 @@ public class Group implements Serializable {
 
     @ApiModelProperty("分组名称")
     private String groupName;
+
+    @ApiModelProperty("单词数量")
+    @TableField(exist = false)
+    private Integer wordsCount;
 }

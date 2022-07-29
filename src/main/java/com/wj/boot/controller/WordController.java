@@ -44,4 +44,11 @@ public class WordController {
     public R checkWords(@Valid CheckRequest checkRequest) {
         return R.ok(wordsService.checkWords(checkRequest));
     }
+
+    @GetMapping("listGroup")
+    @ApiOperation("获取单词组列表")
+    @ApiOperationSupport(order = 102)
+    public R listGroup() {
+        return R.ok(wordsService.listGroup());
+    }
 }
